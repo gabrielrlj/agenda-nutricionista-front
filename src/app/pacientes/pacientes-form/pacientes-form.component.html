@@ -1,0 +1,56 @@
+<h1 class="mt-4">Pacientes</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Cadastro</li>
+</ol>
+<div class="container">
+    <form #pacienteForm="ngForm" (ngSubmit)="onSubmit(); pacienteForm.reset()">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success == true">
+                    Paciente salvo/atualizado com sucesso!
+                </div>  
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+                    {{erro}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Nome:</label>
+                    <input type="text" class="form-control" [(ngModel)]="paciente.nome" name="nome"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>CPF:</label>
+                    <input type="text" class="form-control" [(ngModel)]="paciente.cpf" name="cpf"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Idade:</label>
+                    <input type="text" class="form-control" [(ngModel)]="paciente.idade" name="idade"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Sexo:</label>
+                        <select class="form-control" [(ngModel)]="paciente.sexo" name="sexo">
+                            <option value="0">Homem</option>
+                            <option value="1">Mulher</option>
+                        </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-save"></i> Salvar
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
