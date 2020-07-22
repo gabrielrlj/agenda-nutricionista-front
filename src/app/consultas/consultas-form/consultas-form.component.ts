@@ -3,6 +3,8 @@ import { Paciente } from 'src/app/pacientes/paciente';
 import { PacientesService } from '../../pacientes.service';
 import { Consulta } from '../consulta';
 import { ConsultasService } from 'src/app/consultas.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-consultas-form',
@@ -11,10 +13,16 @@ import { ConsultasService } from 'src/app/consultas.service';
 })
 export class ConsultasFormComponent implements OnInit {
 
+  data: String;
+  hora: string;
   consulta : Consulta;
   pacientes :  Paciente[] = [];
+  success : boolean = false;
+  errors : String[];
 
-  constructor(private servicoPaciente : PacientesService, private servicoConsulta : ConsultasService) { 
+  constructor(private servicoPaciente : PacientesService, 
+              private servicoConsulta : ConsultasService,
+              private router : Router) { 
     this.consulta = new Consulta();
   }
 
@@ -25,8 +33,17 @@ export class ConsultasFormComponent implements OnInit {
   }
 
   onSubmit(){
+    this.montaInstante();
     this.servicoConsulta
     .postConsulta(this.consulta)
-    .subscribe();
+    .subscribe( () => this.success=true);
+  }
+
+  voltarParaListagem(){
+    this.router.navigate(['/consultas-lista']);
+  }
+
+  montaInstante(){
+    this.consulta.instante = this.data.concat((' '+ this.hora));
   }
 }

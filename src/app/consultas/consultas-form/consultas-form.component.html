@@ -5,13 +5,19 @@
 <div class="container">
     <form #form="ngForm" (submit)="onSubmit()">
         <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success == true">
+                    Consulta agendada com sucesso!
+                </div>  
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Paciente:</label>
                     <select class="form-control" 
                             [ngModelOptions]="{standalone: true}"
                             [(ngModel)]="consulta.paciente">
-                        <option value="">Selecione</option>
                         <option *ngFor="let paciente of pacientes" [ngValue]="paciente">
                             {{paciente.nome}}
                         </option>
@@ -20,11 +26,19 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="form-group">
-                    <label>Data e hora</label>
-                    <input placeholder="dd/mm/aaaa hh:mm" 
-                    [(ngModel)] = "consulta.instante"
+                    <label>Data</label>
+                    <input placeholder="dd/mm/aaaa" 
+                    [(ngModel)]="data"
+                    class="form-control" type="text" name="instante" id="inputInstante">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Horário</label>
+                    <input placeholder="hh:mm" 
+                    [(ngModel)]="hora"
                     class="form-control" type="text" name="instante" id="inputInstante">
                 </div>
             </div>
@@ -34,6 +48,9 @@
             <div class="col-md-3">
                 <button type="submit" class="btn btn-success">
                 Salvar
+                </button>
+                <button type="button" class="btn btn-default ml-2" (click)="voltarParaListagem()">
+                    <i class="fa fa-arrow-alt-circle-left"></i> Voltar
                 </button>
             </div>
         </div>
