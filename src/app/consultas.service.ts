@@ -15,6 +15,10 @@ export class ConsultasService {
     return this.http.get<Consulta[]>('http://localhost:8080/consultas');
   }
 
+  postConsulta(consulta : Consulta) : Observable<any>{
+    return this.http.post<Consulta>('http://localhost:8080/consultas', consulta);
+  }
+
   /*getConsultas() : Consulta[]{
     let paciente = new Paciente();
     paciente.id = 1;
