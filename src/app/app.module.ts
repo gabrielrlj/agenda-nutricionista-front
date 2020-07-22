@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ConsultasModule } from './consultas/consultas.module';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
