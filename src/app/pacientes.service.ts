@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Paciente } from './pacientes/paciente';
 import { Observable } from 'rxjs';
-import { Nutricionista } from './pacientes/nutricionista';
+import { Nutricionista } from './nutricionistas/nutricionista';
 
 @Injectable({
   providedIn: 'root'
@@ -15,15 +15,21 @@ export class PacientesService {
     return this.http.post<Paciente>('http://localhost:8080/pacientes', paciente);
   }
 
-  getPaciente() : Paciente{
-    let p : Paciente = new Paciente();
-    p.nome = 'lariosu';
-    p.cpf = '1234';
-    p.idade = 13;
-    p.sexo = 0;
-    p.nutricionista = new Nutricionista();
-    p.nutricionista.id = 1;
-    return p; 
+  atualizar(paciente : Paciente) : Observable<any>{
+    return this.http.put<any>(`http://localhost:8080/pacientes/${paciente.id}`, paciente);
+  }
+
+  getPacientes() : Observable<Paciente[]>{
+    return this.http.get<Paciente[]>('http://localhost:8080/pacientes');
+  }
+
+  getPacienteById(id : number)  : Observable<Paciente> {
+    return this.http.get<Paciente>(`http://localhost:8080/pacientes/${id}`);
+  }
+
+  deletar(paciente : Paciente) : Observable<any>{
+    console.log(paciente.id);
+    return this.http.delete(`http://localhost:8080/pacientes/${paciente.id}`);
   }
 
 

@@ -8,6 +8,8 @@ import { TemplateModule } from './template/template.module';
 import { HomeComponent } from './home/home.component'
 import { PacientesModule } from './pacientes/pacientes.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ConsultasModule } from './consultas/consultas.module';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     AppRoutingModule,
     TemplateModule,
-    PacientesModule
+    PacientesModule,
+    ConsultasModule
   ],
   providers: [PacientesService],
   bootstrap: [AppComponent]

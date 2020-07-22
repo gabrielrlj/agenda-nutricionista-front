@@ -1,9 +1,9 @@
 <h1 class="mt-4">Pacientes</h1>
 <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">Cadastro</li>
+    <li class="breadcrumb-item active">{{paciente.id ? 'Edição' : 'Cadastro'}}</li>
 </ol>
 <div class="container">
-    <form #pacienteForm="ngForm" (ngSubmit)="onSubmit(); pacienteForm.reset()">
+    <form #pacienteForm="ngForm" (ngSubmit)="onSubmit();">
         <div class="row">
             <div class="col-md-12">
                 <div class="alert alert-success" role="alert" *ngIf="success == true">
@@ -39,18 +39,25 @@
                 <div class="form-group">
                     <label>Sexo:</label>
                         <select class="form-control" [(ngModel)]="paciente.sexo" name="sexo">
-                            <option value="0">Homem</option>
-                            <option value="1">Mulher</option>
+                            <option value="0">Masculino</option>
+                            <option value="1">Feminino</option>
                         </select>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-success">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-success" *ngIf="!paciente.id">
                     <i class="fa fa-save"></i> Salvar
                 </button>
+                <button type="submit" class="btn btn-primary" *ngIf="paciente.id">
+                    <i class="fa fa-sync-alt"></i> Atualizar
+                </button>
+                <button type="button" class="btn btn-default ml-2" (click)="voltarParaListagem()">
+                    <i class="fa fa-arrow-alt-circle-left"></i> Voltar
+                </button>
             </div>
+
         </div>
     </form>
 </div>

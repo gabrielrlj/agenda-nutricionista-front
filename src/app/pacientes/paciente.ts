@@ -1,4 +1,4 @@
-import { Nutricionista } from './nutricionista';
+import { Nutricionista } from '../nutricionistas/nutricionista';
 
 
 export class Paciente{

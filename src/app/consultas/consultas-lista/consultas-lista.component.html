@@ -1,0 +1,48 @@
+<h1 class="mt-4">Consultas</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Minhas Consultas</li>
+</ol>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-warning" >
+                <i class="fa fa-plus"></i>
+                Nova Consulta
+            </button>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Data</th>
+                        <th>Paciente</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    <tr *ngFor="let consulta of consultas">
+                        <td>{{consulta.id}}</td>   
+                        <td>{{consulta.instante}}</td>
+                        <td>{{consulta.paciente.nome}}</td>
+                        <td>
+                            <button class="btn btn-primary"       >
+                                <i class="fa fa-pencil-alt"></i>
+                            </button>
+
+                            <button class="btn btn-danger ml-2"
+                             data-toggle="modal" data-target="#modalDel" >
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

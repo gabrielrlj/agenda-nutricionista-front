@@ -1,0 +1,81 @@
+<h1 class="mt-4">Pacientes</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Meus Pacientes</li>
+</ol>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success" role="alert" *ngIf="mensagemSucesso">
+                {{mensagemSucesso}}
+            </div>  
+            <div class="alert alert-danger" role="alert" *ngIf="mensagemErro">
+                {{mensagemErro}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-warning" (click)="novoCadastro()">
+                <i class="fa fa-plus"></i>
+                Novo Paciente
+            </button>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Idade</th>
+                        <th>Sexo</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    <tr *ngFor="let paciente of pacientes">
+                        <td>{{paciente.id}}</td>   
+                        <td>{{paciente.nome}}</td>
+                        <td>{{paciente.cpf}}</td>
+                        <td>{{paciente.idade}}</td>
+                        <td>{{paciente.sexo}}</td>
+                        <td>
+                            <button class="btn btn-primary" routerLink="/pacientes-form/{{ paciente.id }}">
+                                <i class="fa fa-pencil-alt"></i>
+                            </button>
+
+                            <button class="btn btn-danger ml-2"
+                             data-toggle="modal" data-target="#modalDel" (click)="preparaDel(paciente)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="modalDel" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Confirmação</h4>
+                </div>
+                <div class="modal-body" *ngIf="pacienteSelecionado">
+                    Deseja realmente remover o paciente {{pacienteSelecionado.nome}} ?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" (click)="deletarPaciente()" data-dismiss="modal">
+                        Confirmar
+                    </button>
+                    <button class="btn btn-default" data-dismiss="modal">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
