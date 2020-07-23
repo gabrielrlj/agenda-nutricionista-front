@@ -39,7 +39,7 @@ export class PacientesFormComponent implements OnInit {
     if (this.id != null){
       this.service.getPacienteById(this.id).subscribe(res =>{
         this.paciente = res;
-        console.log('aaaa');
+    
       }, erro => {
         console.log("cliente nao existe");
       });
@@ -75,10 +75,8 @@ export class PacientesFormComponent implements OnInit {
 
    
   voltarParaListagem(){
-      this.router.navigate(['/pacientes-lista']);
+      this.router.navigate(['/pacientes/lista']);
   }
-  consoleLog(){
-    console.log('ai ai ai ai nham')
-  }
+ 
 
 }

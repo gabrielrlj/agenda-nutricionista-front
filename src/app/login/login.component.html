@@ -7,12 +7,12 @@
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
                             <div class="card-header">
                                 <h3 class="text-center font-weight-light my-4">
-                                    Entrar
+                                    {{ ehCadastro ? 'Cadastro' : 'Entrar'  }}
                                 </h3>
                             </div>
                             <div class="card-body">
-                                <div class="alert alert-danger">
-                                    Login e/ou senha incorretos!
+                                <div class="alert alert-danger" *ngIf="loginError">
+                                   Login/senha incorretos!
                                 </div>
 
                                 <form #loginForm="ngForm" (submit)="onSubmit()">
@@ -30,12 +30,29 @@
                                         class="form-control py-4"
                                         placeholder="Digite sua senha">
                                     </div>
-                                    <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                        <button type="submit" class="btn btn-primary">
+                                    <div class="form-group align-items-center justify-content-between mt-4 mb-0">
+                                        <button type="submit" class="btn btn-primary" *ngIf="!ehCadastro">
                                             Entrar
+                                        </button>
+
+                                        <button type="button" class="btn btn-success" *ngIf="ehCadastro">
+                                            Cadastrar
+                                        </button>
+
+                                        <button type="button" 
+                                                (click) = "cancelaCadastro()"
+                                                class="btn btn-danger ml-1" *ngIf="ehCadastro">
+                                            Cancelar
                                         </button>
                                     </div>
                                 </form>
+                            </div>
+                            <div class="card-footer text-center">
+                                <div class="small">
+                                    <a href="#" (click)="preparaCadastrar($event)">
+                                        Ainda não é cadastrado? Cadastre-se agora!
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

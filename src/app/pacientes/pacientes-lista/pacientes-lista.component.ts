@@ -27,7 +27,7 @@ export class PacientesListaComponent implements OnInit {
   }
 
   novoCadastro(){
-    this.router.navigate(['/pacientes-form']);
+    this.router.navigate(['/pacientes/form']);
   }
 
   preparaDel(paciente : Paciente){

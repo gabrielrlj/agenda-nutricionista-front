@@ -27,7 +27,7 @@ export class ConsultasListaComponent implements OnInit {
   }
 
   novoCadastro(){
-    this.router.navigate(['/consultas-form']);
+    this.router.navigate(['/consultas/form']);
   }
 
   

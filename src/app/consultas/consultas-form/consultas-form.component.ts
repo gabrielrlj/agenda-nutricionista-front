@@ -68,7 +68,7 @@ export class ConsultasFormComponent implements OnInit {
   }
 
   voltarParaListagem(){
-    this.router.navigate(['/consultas-lista']);
+    this.router.navigate(['/consultas']);
   }
 
   montaInstante() : boolean{
