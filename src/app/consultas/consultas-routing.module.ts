@@ -6,6 +6,7 @@ import { ConsultasFormComponent } from './consultas-form/consultas-form.componen
 
 const routes: Routes = [
   {path : 'consultas-lista', component : ConsultasListaComponent},
+  {path : 'consultas-form/:id', component : ConsultasFormComponent},
   {path : 'consultas-form', component : ConsultasFormComponent}
 ];
 

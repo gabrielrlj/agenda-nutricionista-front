@@ -1,6 +1,7 @@
 <h1 class="mt-4">Formulário de Consulta</h1>
 <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">Nova Consulta</li>
+    <li class="breadcrumb-item active">{{consulta.id ? 'Editar consulta com ' + consulta.paciente.nome
+         : 'Cadastro'}}</li>
 </ol>
 <div class="container">
     <form #form="ngForm" (submit)="onSubmit()">
@@ -9,10 +10,16 @@
                 <div class="alert alert-success" role="alert" *ngIf="success == true">
                     Consulta agendada com sucesso!
                 </div>  
+                <div class="alert alert-danger" role="alert" *ngIf="success == false">
+                    Problema ao marcar consulta!
+                </div> 
+                <div class="alert alert-danger" role="alert" *ngIf="errors">
+                   {{errors}}
+                </div>  
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6" *ngIf="id == null">
                 <div class="form-group">
                     <label>Paciente:</label>
                     <select class="form-control" 
@@ -46,8 +53,11 @@
 
         <div class="row">
             <div class="col-md-3">
-                <button type="submit" class="btn btn-success">
-                Salvar
+                <button type="submit" class="btn btn-success" *ngIf="!consulta.id">
+                    <i class="fa fa-save"></i> Salvar
+                </button>
+                <button type="submit" class="btn btn-primary" *ngIf="consulta.id">
+                    <i class="fa fa-sync-alt"></i> Atualizar
                 </button>
                 <button type="button" class="btn btn-default ml-2" (click)="voltarParaListagem()">
                     <i class="fa fa-arrow-alt-circle-left"></i> Voltar

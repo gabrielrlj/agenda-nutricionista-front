@@ -10,10 +10,11 @@ import { Router } from '@angular/router';
 })
 export class ConsultasListaComponent implements OnInit {
 
-
+  consultaSelecionada : Consulta;
   consultas : Consulta[] = [];
-
-
+  mensagemSucesso : string;
+  mensagemErro : string;
+  nomeBusca : string;
 
   constructor(private servico : ConsultasService, private router : Router) { }
 
@@ -23,11 +24,33 @@ export class ConsultasListaComponent implements OnInit {
     }, error => {
       console.log(error)
     });
-    //this.consultas = this.servico.getConsultas();
   }
 
   novoCadastro(){
     this.router.navigate(['/consultas-form']);
   }
 
+  
+  preparaDel(consulta : Consulta){
+    this.consultaSelecionada = consulta;
+  }
+
+  deletarConsulta(){
+    this.servico.deletar(this.consultaSelecionada)
+    .subscribe( response => {
+      this.mensagemSucesso = 'Consulta removida!'
+      this.ngOnInit()
+    }, error => {
+      this.mensagemErro = "Ocorreu um problema ao remover consulta!"
+    });
+  }
+
+  pesquisar(){
+    this.servico.pesquisar(this.nomeBusca)
+    .subscribe(response => {
+      this.consultas = response;
+      
+    });
+    
+  }
 }

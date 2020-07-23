@@ -2,36 +2,42 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Consulta } from './consultas/consulta';
 import { Observable } from 'rxjs';
-import { Paciente } from './pacientes/paciente';
+import { environment  } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConsultasService {
 
+  apiURL :  string = environment.apiURl + '/consultas';
+
   constructor(private http : HttpClient) { }
 
   getConsultas() : Observable<Consulta[]>{
-    return this.http.get<Consulta[]>('http://localhost:8080/consultas');
+    return this.http.get<Consulta[]>(`${this.apiURL}`);
   }
 
   postConsulta(consulta : Consulta) : Observable<any>{
-    return this.http.post<Consulta>('http://localhost:8080/consultas', consulta);
+    return this.http.post<Consulta>(`${this.apiURL}`, consulta);
   }
 
-  /*getConsultas() : Consulta[]{
-    let paciente = new Paciente();
-    paciente.id = 1;
-    paciente.cpf = "12345678987";
-    paciente.idade = 15;
-    paciente.nome = "Paulo";
-    paciente.sexo = 0;
+  
+  deletar(consulta : Consulta) : Observable<any>{
+    console.log(consulta.id);
+    return this.http.delete(`${this.apiURL}/${consulta.id}`);
+  }
 
-    let consulta = new Consulta();
-    consulta.id = 1;
-    consulta.instante = "25/07/2020 14:00";
-    consulta.paciente = paciente;
+  
+  getConsultaById(id : number)  : Observable<Consulta> {
+    return this.http.get<Consulta>(`${this.apiURL}/${id}`);
+  }
 
-    return [consulta];
-  }*/
+  
+  atualizar(consulta : Consulta) : Observable<any>{
+    return this.http.put<any>(`${this.apiURL}/${consulta.id}`, consulta);
+  }
+
+  pesquisar(nomeBuscado : string) : Observable<Consulta[]>{
+    return this.http.get<Consulta[]>(`${this.apiURL}/busca/?nome=${nomeBuscado}`);
+  }
 }

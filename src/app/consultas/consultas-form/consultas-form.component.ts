@@ -3,7 +3,7 @@ import { Paciente } from 'src/app/pacientes/paciente';
 import { PacientesService } from '../../pacientes.service';
 import { Consulta } from '../consulta';
 import { ConsultasService } from 'src/app/consultas.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -17,33 +17,69 @@ export class ConsultasFormComponent implements OnInit {
   hora: string;
   consulta : Consulta;
   pacientes :  Paciente[] = [];
-  success : boolean = false;
+  success : boolean;
   errors : String[];
+  id : number;
 
   constructor(private servicoPaciente : PacientesService, 
               private servicoConsulta : ConsultasService,
-              private router : Router) { 
+              private router : Router,
+              private activatedRoute : ActivatedRoute) { 
     this.consulta = new Consulta();
   }
 
   ngOnInit(): void {
-    this.servicoPaciente
-    .getPacientes()
-    .subscribe( response => this.pacientes = response);
+
+
+    let params = this.activatedRoute.params;
+    params.subscribe(response => {
+      this.id = response.id;
+    });
+
+    if (this.id != null){
+      this.servicoConsulta.getConsultaById(this.id).subscribe(res =>{
+        this.consulta = res;
+        console.log('aaaa');
+      }, erro => {
+        console.log("consulta nao existe");
+      });
+    }else{
+      this.servicoPaciente
+      .getPacientes()
+      .subscribe( response => this.pacientes = response);
+    }
   }
 
   onSubmit(){
-    this.montaInstante();
-    this.servicoConsulta
-    .postConsulta(this.consulta)
-    .subscribe( () => this.success=true);
+    if(this.montaInstante()){
+      this.servicoConsulta
+      .postConsulta(this.consulta)
+      .subscribe( () => {
+        this.success=true
+        this.errors = null;
+      }, respostaErro => {
+        this.success = false;
+        this.errors = respostaErro.error.errors;
+      });
+    }else{
+      this.success = false;
+    }
+
   }
 
   voltarParaListagem(){
     this.router.navigate(['/consultas-lista']);
   }
 
-  montaInstante(){
-    this.consulta.instante = this.data.concat((' '+ this.hora));
+  montaInstante() : boolean{
+    if(this.data && this.hora){
+      this.consulta.instante = this.data.concat((' '+ this.hora));
+      return true;
+    }
+    else {
+      console.log('sem data e hora');
+      return false
+    }
+
   }
 }
