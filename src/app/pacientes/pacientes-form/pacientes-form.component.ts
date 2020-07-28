@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Paciente } from '../paciente';
 import { PacientesService } from 'src/app/pacientes.service';
-import { Nutricionista } from '../../nutricionistas/nutricionista';
+import { Nutricionista } from '../../login/nutricionista';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({

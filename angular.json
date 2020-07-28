@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "nutricionista-app"
+    }
+  },
+  "defaultProject": "nutricionista-app",
+  "cli": {
+    "analytics": false
+  }
 }

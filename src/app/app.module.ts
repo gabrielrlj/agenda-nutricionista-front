@@ -12,6 +12,8 @@ import { ConsultasModule } from './consultas/consultas.module';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { LayoutComponent } from './layout/layout.component';
+import { AuthService } from './auth.service';
+import { ConsultasService } from './consultas.service';
 
 
 @NgModule({
@@ -30,7 +32,7 @@ import { LayoutComponent } from './layout/layout.component';
     PacientesModule,
     ConsultasModule
   ],
-  providers: [PacientesService],
+  providers: [PacientesService,AuthService, ConsultasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
