@@ -14,6 +14,7 @@ export class PacientesService {
   constructor( private http : HttpClient) { }
 
   salvar(paciente : Paciente) : Observable<Paciente>{
+ 
     return this.http.post<Paciente>(`${this.apiURL}`, paciente);
   }
 
@@ -22,7 +23,7 @@ export class PacientesService {
   }
 
   getPacientes() : Observable<Paciente[]>{
-    return this.http.get<Paciente[]>(`${this.apiURL}`);
+    return this.http.get<Paciente[]>(this.apiURL);
   }
 
   getPacienteById(id : number)  : Observable<Paciente> {
