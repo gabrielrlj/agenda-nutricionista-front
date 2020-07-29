@@ -49,7 +49,7 @@
                         <td>{{consulta.instante}}</td>
                         <td>{{consulta.paciente.nome}}</td>
                         <td>
-                            <button class="btn btn-primary" routerLink="consultas/form/{{ consulta.id }}">
+                            <button class="btn btn-primary" routerLink="/consultas/form/{{ consulta.id }}">
                                 <i class="fa fa-pencil-alt"></i>
                             </button>
 
@@ -69,9 +69,9 @@
                 <div class="modal-header">
                     <h4>Confirmação</h4>
                 </div>
-                <!--<div class="modal-body" *ngIf="consultaSelecionada">
+                <div class="modal-body" *ngIf="consultaSelecionada">
                     Deseja realmente remover a consulta com {{consultaSelecionada.paciente.nome}} ?
-                </div>-->
+                </div>
                 <div class="modal-footer">
                     <button class="btn btn-success" (click)="deletarConsulta()" data-dismiss="modal">
                         Confirmar
