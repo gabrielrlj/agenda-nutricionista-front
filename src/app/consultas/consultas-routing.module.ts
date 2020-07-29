@@ -3,11 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { ConsultasListaComponent } from './consultas-lista/consultas-lista.component';
 import { ConsultasFormComponent } from './consultas-form/consultas-form.component';
 import { LayoutComponent } from '../layout/layout.component';
-
+import { AuthGuard } from '../auth.guard';
 
 const routes: Routes = [
 
-  {path : 'consultas', component : LayoutComponent, children : [
+  {path : 'consultas', component : LayoutComponent, canActivate : [AuthGuard], children : [
     {path : 'lista', component : ConsultasListaComponent},
     {path : 'form/:id', component : ConsultasFormComponent},
     {path : 'form', component : ConsultasFormComponent},

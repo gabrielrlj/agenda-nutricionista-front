@@ -13,6 +13,11 @@ export class ConsultasService {
 
   constructor(private http : HttpClient) { }
 
+
+  getConsultasByNutricionista(id : number): Observable<Consulta[]>{
+    return this.http.get<Consulta[]>(`${this.apiURL}/nutri/${id}`);
+  }
+
   getConsultas() : Observable<Consulta[]>{
     return this.http.get<Consulta[]>(`${this.apiURL}`);
   }

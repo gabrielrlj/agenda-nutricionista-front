@@ -4,6 +4,7 @@ import { PacientesService } from '../../pacientes.service';
 import { Consulta } from '../consulta';
 import { ConsultasService } from 'src/app/consultas.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Nutricionista } from 'src/app/login/nutricionista';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class ConsultasFormComponent implements OnInit {
   success : boolean;
   errors : String[];
   id : number;
+  nutri: Nutricionista;
 
   constructor(private servicoPaciente : PacientesService, 
               private servicoConsulta : ConsultasService,
@@ -44,9 +46,23 @@ export class ConsultasFormComponent implements OnInit {
         console.log("consulta nao existe");
       });
     }else{
-      this.servicoPaciente
+      //parte que deve ser alterada para trazer apenas os pacientes
+      //do nutricionista logado
+      /*this.servicoPaciente
       .getPacientes()
-      .subscribe( response => this.pacientes = response);
+      .subscribe( response => this.pacientes = response);*/
+      this.servicoPaciente
+        .obterIdLogado()
+          .subscribe(respostinha => {
+            this.nutri = respostinha;
+            this.servicoPaciente.getPacienteByNutricionista(this.nutri.id)
+              .subscribe(respostona => {
+                this.pacientes = respostona;
+              });
+          });
+      /*this.servicoPaciente
+      .getPacienteByNutricionista()
+      .subscribe( response => this.pacientes = response);*/
     }
   }
 

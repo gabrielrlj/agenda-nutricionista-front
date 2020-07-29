@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Consulta } from '../consulta';
 import { ConsultasService } from 'src/app/consultas.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth.service';
+import { PacientesService } from 'src/app/pacientes.service';
+import { Nutricionista } from 'src/app/login/nutricionista';
 
 @Component({
   selector: 'app-consultas-lista',
@@ -15,15 +18,21 @@ export class ConsultasListaComponent implements OnInit {
   mensagemSucesso : string;
   mensagemErro : string;
   nomeBusca : string;
-
-  constructor(private servico : ConsultasService, private router : Router) { }
+  objNutri : Nutricionista;
+  constructor(private servico : ConsultasService, private router : Router, private paciService : PacientesService) { }
 
   ngOnInit(): void {
-    this.servico.getConsultas().subscribe( response => {
-      this.consultas = response;
-    }, error => {
-      console.log(error)
-    });
+    
+    this.paciService.obterIdLogado()
+      .subscribe( retorno => {
+        this.objNutri = retorno;
+        this.servico.getConsultasByNutricionista(this.objNutri.id)
+          .subscribe(resposta => {
+            console.log(resposta)
+            this.consultas = resposta;
+          })
+      });
+
   }
 
   novoCadastro(){

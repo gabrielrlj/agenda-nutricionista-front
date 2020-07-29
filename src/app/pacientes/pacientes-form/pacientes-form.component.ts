@@ -24,13 +24,19 @@ export class PacientesFormComponent implements OnInit {
     ) {
 
     this.nutricionista = new Nutricionista();
-    this.nutricionista.id = 1;
     this.paciente = new Paciente();
-    this.paciente.nutricionista = this.nutricionista;
-  
+    
   }
 
   ngOnInit(): void {
+    this.service.obterIdLogado()
+      .subscribe( response => {
+        this.nutricionista = response;
+        this.paciente.nutricionista = this.nutricionista;
+      }, error =>{
+        console.log(error)
+      });
+
     let params = this.activatedRoute.params;
     params.subscribe(response => {
       this.id = response.id;
