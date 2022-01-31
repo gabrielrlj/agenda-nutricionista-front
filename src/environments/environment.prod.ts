@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiURl: "http://localhost:8080/",
+  apiURl: "https://agenda-nutri-jardim.herokuapp.com/",
   clientId: "my-angular-app",
   clientSecret: "@321",
   token_url: "oauth/token"
